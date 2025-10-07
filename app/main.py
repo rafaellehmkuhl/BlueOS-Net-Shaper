@@ -1,10 +1,20 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import subprocess
 import shlex
 import os
 
 app = FastAPI(title="BlueOS Net Shaper")
+
+# Serve the UI
+@app.get("/")
+def root():
+    ui_path = os.path.join(os.path.dirname(__file__), "..", "ui", "index.html")
+    if os.path.exists(ui_path):
+        return FileResponse(ui_path)
+    return {"message": "BlueOS Net Shaper API"}
 
 # Automatically detect interface (prefers eth0, usb0, tether0, wlan0)
 PREFERRED = ["eth0", "usb0", "tether0", "wlan0"]
