@@ -8,6 +8,19 @@ import os
 
 app = FastAPI(title="BlueOS Net Shaper")
 
+# BlueOS extension registration endpoint
+@app.get("/register_service")
+def register_service():
+    return {
+        "name": "Net Shaper",
+        "description": "Network simulator for testing: bandwidth limiting, packet loss, and latency",
+        "icon": "mdi-network-strength-outline",
+        "company": "Blue Robotics",
+        "version": "0.1.3",
+        "webpage": "https://github.com/rafaellehmkuhl/blueos-net-shaper",
+        "api": "https://github.com/rafaellehmkuhl/blueos-net-shaper"
+    }
+
 # Serve the UI
 @app.get("/")
 def root():
