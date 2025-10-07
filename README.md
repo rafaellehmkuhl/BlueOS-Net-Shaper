@@ -6,7 +6,7 @@ BlueOS extension that allows simulating packet loss, latency, and bandwidth limi
 
 ### Multi-Architecture Build (Recommended)
 
-To support Raspberry Pi 3, 4, 5, and desktops, build for multiple architectures:
+To support Raspberry Pi 4, 5, and desktops, build for multiple architectures:
 
 1. Create a buildx builder (first time only):
 
@@ -19,7 +19,7 @@ docker buildx inspect --bootstrap
 
 ```bash
 docker buildx build \
-  --platform linux/amd64,linux/arm64,linux/arm/v7 \
+  --platform linux/amd64,linux/arm64 \
   -t rafaellehmkuhl/blueos-net-shaper:latest \
   --push .
 ```
@@ -52,7 +52,8 @@ docker build -t rafaellehmkuhl/blueos-net-shaper:latest .
 This extension is built for multiple architectures:
 - **linux/amd64** - Desktop computers (Intel/AMD)
 - **linux/arm64** - Raspberry Pi 4, 5, and other 64-bit ARM devices
-- **linux/arm/v7** - Raspberry Pi 3 and other 32-bit ARM devices
+
+**Note:** Raspberry Pi 3 (ARMv7/32-bit) is not currently supported due to long build times for Python dependencies.
 
 ## Important Notes
 - **Nothing is installed on the HostOS**: all tools (tc, ip, iptables) are inside the container. However, the container needs permission to manipulate the host's network stack.

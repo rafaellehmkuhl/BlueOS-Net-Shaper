@@ -1,6 +1,6 @@
 #!/bin/bash
 # Multi-architecture build script for BlueOS Net Shaper
-# Builds for: AMD64 (desktops), ARM64 (Pi 4/5), ARMv7 (Pi 3)
+# Builds for: AMD64 (desktops), ARM64 (Pi 4/5)
 
 set -e
 
@@ -20,11 +20,11 @@ fi
 
 # Build and push for multiple platforms
 docker buildx build \
-    --platform linux/amd64,linux/arm64,linux/arm/v7 \
+    --platform linux/amd64,linux/arm64 \
     -t "$IMAGE_NAME:$VERSION" \
     --push \
     .
 
 echo "✓ Successfully built and pushed $IMAGE_NAME:$VERSION"
-echo "  Architectures: linux/amd64, linux/arm64, linux/arm/v7"
+echo "  Architectures: linux/amd64, linux/arm64"
 
