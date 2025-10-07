@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>BlueOS Net Shaper</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Roboto, Arial; padding: 16px }
+      input, button { margin: 4px }
+      .row { margin-bottom: 12px }
+    </style>
+  </head>
+  <body>
+    <h2>BlueOS Net Shaper</h2>
+    <div class="row">
+      <label>Detected interface: <span id="iface">...</span></label>
+    </div>
+
+    <div class="row">
+      <input id="kb" placeholder="rate kbit (ex: 512)" />
+      <button onclick="setBW()">Set Out Bandwidth</button>
+      <button onclick="clearBW()">Clear</button>
+    </div>
+
+    <div class="row">
+      <input id="lossout" placeholder="loss out %" />
+      <button onclick="lossOut()">Apply</button>
+    </div>
+
+    <div class="row">
+      <input id="lossin" placeholder="loss in %" />
+      <button onclick="lossIn()">Apply Ingress Loss</button>
+    </div>
+
+    <script>
+      const base = '' // the extension will be served in an iframe by BlueOS; use relative path
+      async function status(){
+        const r = await fetch(base + '/status')
+        const j = await r.json()
+        document.getElementById('iface').innerText = j.iface
+      }
+      async function setBW(){
+        const k = document.getElementById('kb').value
+        await fetch(base + '/bandwidth/out/' + k, {method:'POST'})
+        alert('ok')
+      }
+      async function clearBW(){
+        await fetch(base + '/bandwidth/clear', {method:'POST'})
+        alert('cleared')
+      }
+      async function lossOut(){
+        const v = document.getElementById('lossout').value
+        await fetch(base + '/loss/out/' + v, {method:'POST'})
+        alert('ok')
+      }
+      async function lossIn(){
+        const v = document.getElementById('lossin').value
+        await fetch(base + '/loss/in/' + v, {method:'POST'})
+        alert('ok')
+      }
+      status()
+    </script>
+  </body>
+</html>
+

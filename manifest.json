@@ -1,0 +1,22 @@
+{
+  "name": "blueos-net-shaper",
+  "description": "Network simulator for BlueOS: loss/latency/bandwidth",
+  "version": "0.1.0",
+  "type": "extension",
+  "author": "Rafael Lehmkuhl",
+  "company": "Blue Robotics",
+  "url": "https://github.com/rafaellehmkuhl/blueos-net-shaper",
+  "website": "https://github.com/rafaellehmkuhl/blueos-net-shaper",
+  "readme": "https://raw.githubusercontent.com/rafaellehmkuhl/blueos-net-shaper/master/README.md",
+  "icon": "",
+  "docker": {
+    "image": "rafaellehmkuhl/blueos-net-shaper:latest",
+    "network": "host",
+    "privileged": false,
+    "cap_add": ["NET_ADMIN", "NET_RAW"],
+    "binds": [],
+    "environment": {},
+    "restart": "unless-stopped"
+  }
+}
+
