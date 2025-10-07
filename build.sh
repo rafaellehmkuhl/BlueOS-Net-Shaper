@@ -1,6 +1,6 @@
 #!/bin/bash
 # Multi-architecture build script for BlueOS Net Shaper
-# Builds for: AMD64 (desktops), ARM64 (Pi 4/5)
+# Builds for: AMD64 (desktops), ARM64 (Pi 4/5 64-bit), ARMv7 (Pi 3/4 32-bit)
 
 set -e
 
@@ -18,13 +18,13 @@ else
     echo "Using existing buildx builder 'multiarch'..."
 fi
 
-# Build and push for multiple platforms
+# Build and push for multiple platforms (including armv7 for 32-bit Pi OS)
 docker buildx build \
-    --platform linux/amd64,linux/arm64 \
+    --platform linux/amd64,linux/arm64,linux/arm/v7 \
     -t "$IMAGE_NAME:$VERSION" \
     --push \
     .
 
 echo "✓ Successfully built and pushed $IMAGE_NAME:$VERSION"
-echo "  Architectures: linux/amd64, linux/arm64"
+echo "  Architectures: linux/amd64, linux/arm64, linux/arm/v7"
 

@@ -51,9 +51,8 @@ docker build -t rafaellehmkuhl/blueos-net-shaper:latest .
 
 This extension is built for multiple architectures:
 - **linux/amd64** - Desktop computers (Intel/AMD)
-- **linux/arm64** - Raspberry Pi 4, 5, and other 64-bit ARM devices
-
-**Note:** Raspberry Pi 3 (ARMv7/32-bit) is not currently supported due to long build times for Python dependencies.
+- **linux/arm64** - Raspberry Pi 4, 5 with 64-bit OS
+- **linux/arm/v7** - Raspberry Pi 3, 4 with 32-bit OS
 
 ## Important Notes
 - **Nothing is installed on the HostOS**: all tools (tc, ip, iptables) are inside the container. However, the container needs permission to manipulate the host's network stack.
